@@ -3,6 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <title>Python.lv</title>
+
+        <link href="http://fonts.googleapis.com/css?family=Oswald|Oxygen&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ url_for("static", filename="stylesheets/normalize.css") }}" />
+        <link rel="stylesheet" href="{{ url_for("static", filename="stylesheets/main.css") }}" />
+        <link rel="shortcut icon" href="{{ url_for("static", filename="images/favicon.ico") }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
