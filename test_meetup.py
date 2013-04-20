@@ -36,6 +36,13 @@ class TestMeetupApi(TestCase):
         self.assertEquals(event.location,
                           'TechHub Riga, Citadeles iela 12, Riga')
 
+    def test_creates_google_map_url_for_location(self):
+        event = self.meetup.next_event()
+
+        self.assertEquals(
+            event.location_map_url,
+            'https://maps.google.com/maps?q=Citadeles+iela+12,+Riga')
+
     def test_asks_meetup_server_for_information(self):
         self.meetup.next_event()
 

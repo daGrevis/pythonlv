@@ -4,7 +4,30 @@ from collections import namedtuple
 from functools import partial
 
 
-Event = namedtuple('Event', ['url', 'name', 'date', 'location', 'description'])
+_Event = namedtuple('_Event', [
+    'url',
+    'name',
+    'date',
+    'location',
+    'location_address',
+    'location_city',
+    'description'
+])
+
+
+class Event(_Event):
+    @property
+    def location_map_url(self):
+        map_query_template = 'https://maps.google.com/maps?q={}'
+        address = self._sanitized_address()
+
+        return map_query_template.format(address)
+
+    def _sanitized_address(self):
+        full_address = ', '.join(
+            [self.location_address, self.location_city])
+
+        return full_address.replace(' ', '+')
 
 
 class Connection(object):
@@ -43,6 +66,8 @@ class _PYLUGMeetup(object):
         event = Event(url=event_dict['event_url'],
                       name=event_dict['name'],
                       location=location,
+                      location_address=venue.get('address_1', ''),
+                      location_city=venue.get('city', ''),
                       date=event_datetime,
                       description=event_dict['description'])
 
